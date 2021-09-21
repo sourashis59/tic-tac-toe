@@ -3,6 +3,10 @@
 const statusDiv = document.querySelector(".status");
 const restartDiv = document.querySelector(".restartButton");
 const cellDivs = document.querySelectorAll(".game-cell");
+const endGameContainer = document.querySelector(".endgame-container");
+const endGameMessage = document.querySelector(".endgame-message");
+const overlayDiv = document.querySelector(".overlay");
+const closeModalButton = document.querySelector(".close-modal");
 
 // console.log(restartDiv) ;
 
@@ -15,7 +19,7 @@ let oSymbol = "O";
 let gameIsLive = true;
 let firstPlayer = "X";
 let currPlayer = firstPlayer;
-// let xIsNext = true;
+let winner = null; // 'X' means winner is 'X' , 'O' means winner is 'O', 'D' means draw, and nulls means result is not decided yet
 
 //indicates the values at cell[i]
 let cellVal = [null, null, null, null, null, null, null, null, null];
@@ -31,6 +35,7 @@ const currPlayerHasWon = function () {
             cellDivs[1].classList.add("won");
             cellDivs[2].classList.add("won");
 
+            winner = currPlayer;
             return true;
         }
 
@@ -41,6 +46,8 @@ const currPlayerHasWon = function () {
             cellDivs[3].classList.add("won");
             cellDivs[6].classList.add("won");
 
+            winner = currPlayer;
+
             return true;
         }
 
@@ -50,6 +57,8 @@ const currPlayerHasWon = function () {
             cellDivs[0].classList.add("won");
             cellDivs[4].classList.add("won");
             cellDivs[8].classList.add("won");
+
+            winner = currPlayer;
 
             return true;
         }
@@ -63,6 +72,8 @@ const currPlayerHasWon = function () {
             cellDivs[6].classList.add("won");
             cellDivs[7].classList.add("won");
 
+            winner = currPlayer;
+
             return true;
         }
 
@@ -72,6 +83,8 @@ const currPlayerHasWon = function () {
             cellDivs[8].classList.add("won");
             cellDivs[2].classList.add("won");
             cellDivs[5].classList.add("won");
+
+            winner = currPlayer;
 
             return true;
         }
@@ -85,6 +98,8 @@ const currPlayerHasWon = function () {
             cellDivs[3].classList.add("won");
             cellDivs[5].classList.add("won");
 
+            winner = currPlayer;
+
             return true;
         }
 
@@ -95,6 +110,8 @@ const currPlayerHasWon = function () {
             cellDivs[1].classList.add("won");
             cellDivs[7].classList.add("won");
 
+            winner = currPlayer;
+
             return true;
         }
 
@@ -104,6 +121,8 @@ const currPlayerHasWon = function () {
             cellDivs[4].classList.add("won");
             cellDivs[2].classList.add("won");
             cellDivs[6].classList.add("won");
+
+            winner = currPlayer;
 
             return true;
         }
@@ -120,19 +139,41 @@ const gameDrawn = function () {
         }
 
     console.log("game drawn!!!");
+
+    winner = "D";
+
     return true;
 };
 
+const endGame = function () {
+    if (winner !== null) {
+        gameIsLive = false;
+
+        if (winner === "D") {
+            statusDiv.innerText = `Match ended in tie!!!`;
+            endGameMessage.innerText = `Match ended in a tie!!!`;
+        } else {
+            statusDiv.innerText = `${winner} has won !!!!`;
+
+            endGameMessage.innerText = `${winner} has won !!!!`;
+        }
+
+        endGameContainer.classList.remove("hidden");
+        overlayDiv.classList.remove("hidden");
+    }
+};
 //*event handlers___________________________________________________________
 
 const handleRestart = function (event) {
     console.log("restart clicked");
 
-    //TODO:
-
     gameIsLive = true;
     currPlayer = firstPlayer;
+    winner = null;
     statusDiv.innerText = firstStatusDiv;
+
+    endGameContainer.classList.add("hidden");
+    overlayDiv.classList.add("hidden");
 
     for (let i = 0; i < cellDivs.length; i++) {
         cellVal[i] = null;
@@ -154,16 +195,19 @@ const handleCellClick = function (event) {
         cellVal[i] = currPlayer;
 
         if (currPlayerHasWon()) {
-            statusDiv.innerText = `${currPlayer} has won !!!!`;
-            gameIsLive = false;
+            // statusDiv.innerText = `${winner} has won !!!!`;
+            // gameIsLive = false;
+
+            endGame();
             return;
         } else if (gameDrawn()) {
-            statusDiv.innerText = `Match ended in a tie !!!!`;
-            gameIsLive = false;
+            // statusDiv.innerText = `Match ended in a tie !!!!`;
+            // gameIsLive = false;
+
+            endGame();
             return;
         }
 
-        // xIsNext = !xIsNext;
         currPlayer = currPlayer === "X" ? "O" : "X";
         statusDiv.innerText = `${currPlayer}'s turn `;
     }
@@ -184,9 +228,21 @@ const handleCellHover = function (event) {
     }
 };
 
-//*event listners_______________________________________________________________
-restartDiv.addEventListener("click", handleRestart);
+const handleCloseModal = function () {
+    endGameContainer.classList.add("hidden");
+    overlayDiv.classList.add("hidden");
+};
 
+//*event listners_______________________________________________________________
+
+restartDiv.addEventListener("click", handleRestart);
+closeModalButton.addEventListener("click", handleCloseModal);
+overlayDiv.addEventListener("click", handleCloseModal);
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") handleCloseModal();
+});
+
+//*Execution__________________________________________________________________________
 for (let i = 0; i < cellDivs.length; i++) {
     console.log(cellDivs[i]);
 
