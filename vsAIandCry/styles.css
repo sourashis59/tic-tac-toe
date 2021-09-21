@@ -1,0 +1,235 @@
+:root {
+    --containerColor: rgb(42, 47, 74);
+    --stripeColor: rgb(168, 245, 255);
+    --titleColor: white;
+    --xSymbol: "✖";
+    --oSymbol: "O";
+    --xColor: rgb(185, 148, 224);
+    --oColor: rgb(242, 126, 130);
+    --winColor: yellow;
+}
+
+* {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+body html {
+    min-height: 100%;
+}
+
+body {
+    color: white;
+    display: flex;
+    font-family: sans-serif;
+    justify-content: center;
+
+    background: linear-gradient(to top left, #28b487, #7dd56f);
+    background-image: url(Images/XdZGlu.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    position: relative;
+}
+
+.container {
+    background-color: var(--containerColor);
+
+    margin: 50px;
+    padding: 50px;
+
+    /* width: 500px;
+    height: 600px;
+
+     */
+    border-radius: 5%;
+}
+
+.title {
+    text-align: center;
+    color: var(--titleColor);
+    font-size: 2rem;
+}
+
+.status-action {
+    display: flex;
+    margin-top: 1rem;
+    font-size: 1.3rem;
+
+    justify-content: space-around;
+}
+
+.restartButton {
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 30%;
+    background-color: green;
+
+    color: white;
+    border-color: black;
+    font-size: 1.3rem;
+
+    transition: 200ms transform;
+}
+
+.restartButton:hover {
+    content: pointer;
+
+    background-color: yellow;
+    color: black;
+    transform: translateY(-0.2rem);
+}
+
+.gameBoard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+
+    grid-gap: 0.4rem;
+
+    margin-top: 3rem;
+
+    background: var(--stripeColor);
+}
+
+.game-cell {
+    height: 200px;
+    width: 200px;
+
+    background: var(--containerColor);
+
+    cursor: pointer;
+
+    font-size: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.X::after {
+    content: var(--xSymbol);
+    color: var(--xColor);
+}
+
+.O::after {
+    content: var(--oSymbol);
+    color: var(--oColor);
+}
+
+.won::after {
+    color: var(--winColor);
+}
+
+@media only screen and (max-width: 1024px) {
+    .gameBoard {
+        margin-top: 1rem;
+
+        grid-gap: 0.1rem;
+    }
+
+    .game-cell {
+        height: 150px;
+        width: 150px;
+    }
+
+    .game-cell {
+        font-size: 7rem;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .container {
+        margin: 50px;
+        padding: 50px;
+
+        /* color: red; */
+    }
+    .gameBoard {
+        margin-top: 1rem;
+
+        grid-gap: 0.1rem;
+    }
+
+    .game-cell {
+        height: 100px;
+        width: 100px;
+    }
+
+    .game-cell {
+        font-size: 5rem;
+    }
+}
+
+/* Endgame modal window */
+
+.endgame-container {
+    color: green;
+
+    /* background-color: green; */
+
+    margin: 50px;
+    padding: 50px;
+
+    width: 500px;
+    height: 600px;
+
+    border-radius: 5%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.endgame-message {
+    text-align: center;
+    color: black;
+    font-size: 6rem;
+}
+
+.modal {
+    /* position: absolute; */
+    top: 40%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+
+    background-color: purple;
+    opacity: 0.6;
+
+    padding: 6rem;
+    border-radius: 5px;
+    box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+    z-index: 10;
+
+    /* background-image: url(Images/XdZGlu.webp); */
+}
+
+.hidden {
+    display: none;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: 5;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1.2rem;
+    right: 2rem;
+    font-size: 5rem;
+    color: white;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
