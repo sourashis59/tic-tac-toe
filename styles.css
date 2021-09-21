@@ -55,3 +55,23 @@ body {
     color: black;
     opacity: 0.8;
 }
+
+@media only screen and (max-height: 800px) {
+    .headingContainer {
+        font-size: 1.5rem;
+        margin-top: 4rem;
+        margin-bottom: 2rem;
+    }
+
+    .show-modal {
+        font-size: 1.8rem;
+        font-weight: 300;
+        padding: 1rem 3rem;
+        margin: 5rem 2rem;
+        border: none;
+        background-color: #fff;
+        color: #444;
+        border-radius: 10rem;
+        cursor: pointer;
+    }
+}
