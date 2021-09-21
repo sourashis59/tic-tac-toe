@@ -20,6 +20,11 @@ body {
     display: flex;
     font-family: sans-serif;
     justify-content: center;
+
+    background-image: url(https://cdn.wallpapersafari.com/13/14/XdZGlu.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .container {
