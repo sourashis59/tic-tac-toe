@@ -192,6 +192,10 @@ const handleCellClick = function (event) {
 
     if (!classList.contains("X") && !classList.contains("O") && gameIsLive) {
         classList.add(currPlayer);
+
+        classList.remove("hoverX");
+        classList.remove("hoverO");
+
         cellVal[i] = currPlayer;
 
         if (currPlayerHasWon()) {
@@ -213,7 +217,7 @@ const handleCellClick = function (event) {
     }
 };
 
-const handleCellHover = function (event) {
+const handleCellMouseEnter = function (event) {
     const id = event.target.id;
     const i = Number(id);
 
@@ -225,7 +229,17 @@ const handleCellHover = function (event) {
         event.target.style.cursor = "pointer";
 
         //TODO: Add hover effect of unused box
+        if (currPlayer == "X") event.target.classList.add("hoverX");
+        else event.target.classList.add("hoverO");
     }
+};
+
+const handleCellMouseLeave = function (event) {
+    const id = event.target.id;
+    const i = Number(id);
+
+    event.target.classList.remove("hoverX");
+    event.target.classList.remove("hoverO");
 };
 
 const handleCloseModal = function () {
@@ -247,5 +261,6 @@ for (let i = 0; i < cellDivs.length; i++) {
     console.log(cellDivs[i]);
 
     cellDivs[i].addEventListener("click", handleCellClick);
-    cellDivs[i].addEventListener("mouseover", handleCellHover);
+    cellDivs[i].addEventListener("mouseenter", handleCellMouseEnter);
+    cellDivs[i].addEventListener("mouseleave", handleCellMouseLeave);
 }

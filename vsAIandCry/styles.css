@@ -1,5 +1,8 @@
 :root {
     --containerColor: rgb(42, 47, 74);
+
+    /* --containerColor: rgb(179, 34, 92); */
+
     --stripeColor: rgb(168, 245, 255);
     --titleColor: white;
     --xSymbol: "✖";
@@ -7,6 +10,10 @@
     --xColor: rgb(185, 148, 224);
     --oColor: rgb(242, 126, 130);
     --winColor: yellow;
+
+    --hoverGameCellColor: white;
+    --gameCellFontSize: 10rem;
+    --hoverGameCellFontSize: 8rem;
 }
 
 * {
@@ -61,12 +68,63 @@ body {
     justify-content: space-around;
 }
 
+/* CSS */
+.button-29 {
+    align-items: center;
+    appearance: none;
+    /* background-image: radial-gradient(
+        100% 100% at 100% 0,
+        #5adaff 0,
+        #5468ff 100%
+    ); */
+    border: 0;
+    border-radius: 6px;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+        rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+        rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow 0.15s, transform 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+}
+
+.button-29:focus {
+    box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+        rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.button-29:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+        rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.button-29:active {
+    box-shadow: #3c4fe0 0 3px 7px inset;
+    transform: translateY(2px);
+}
+
 .restartButton {
     cursor: pointer;
-    padding: 0.5rem 1rem;
-    border-radius: 30%;
-    background-color: green;
-
+    background-color: blue;
     color: white;
     border-color: black;
     font-size: 1.3rem;
@@ -102,10 +160,24 @@ body {
 
     cursor: pointer;
 
-    font-size: 10rem;
+    font-size: var(--gameCellFontSize);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.hoverX::after {
+    content: var(--xSymbol);
+    opacity: 0.4;
+    color: var(--hoverGameCellColor);
+    font-size: var(--hoverGameCellFontSize);
+}
+
+.hoverO::after {
+    content: var(--oSymbol);
+    opacity: 0.4;
+    color: var(--hoverGameCellColor);
+    font-size: var(--hoverGameCellFontSize);
 }
 
 .X::after {
@@ -165,7 +237,7 @@ body {
 /* Endgame modal window */
 
 .endgame-container {
-    color: green;
+    color: white;
 
     /* background-color: green; */
 
@@ -175,7 +247,7 @@ body {
     width: 500px;
     height: 600px;
 
-    border-radius: 5%;
+    border-radius: 10%;
 
     display: flex;
     justify-content: center;
@@ -184,8 +256,8 @@ body {
 
 .endgame-message {
     text-align: center;
-    color: black;
-    font-size: 6rem;
+    color: white;
+    font-size: 7rem;
 }
 
 .modal {
@@ -197,13 +269,15 @@ body {
     width: 50%;
     height: 50%;
 
-    background-color: purple;
-    opacity: 0.6;
+    background-color: green;
+    opacity: 0.7;
 
     padding: 6rem;
-    border-radius: 5px;
+    border-radius: 10%;
     box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
     z-index: 10;
+
+    border: 0.7rem solid white;
 
     /* background-image: url(Images/XdZGlu.webp); */
 }
